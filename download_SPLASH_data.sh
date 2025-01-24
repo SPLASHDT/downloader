@@ -3,7 +3,7 @@
 source ./credentials.sh
 
 DATE=$(date '+%Y%m%d')
-DIROUT=$(pwd)'/data_inputs'
+DIROUT='/data//data_inputs'
 
 # Download waves from FTP
 wget -r --user="$user" --password="$password" ftp://marineservices.metoffice.gov.uk//shelf-amm15//metoffice_wave_amm15_NWS_WAV_b$(date +\%Y\%m\%d)_hi*.nc -P "$DIROUT/wave/"
@@ -31,4 +31,3 @@ DIR='/home/nievesg/MO_FTP/Atmos/downloaded/o104448053774_00'
 cp "$DIR/agl_wind-direction-from-which-blowing-surface-adjusted_10.0_+00.grib2"  "$DIROUT/wind/agl_wind-direction-$DATE.grib2"
 cp "$DIR/agl_wind-speed-surface-adjusted_10.0_+00.grib2"  "$DIROUT/wind/agl_wind-speed-$DATE.grib2"
 
-# Run SPLASH
