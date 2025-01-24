@@ -1,0 +1,34 @@
+#!/bin/bash
+
+source ./credentials.sh
+
+DATE=$(date '+%Y%m%d')
+DIROUT=$(pwd)'/data_inputs'
+
+# Download waves from FTP
+wget -r --user="$user" --password="$password" ftp://marineservices.metoffice.gov.uk//shelf-amm15//metoffice_wave_amm15_NWS_WAV_b$(date +\%Y\%m\%d)_hi*.nc -P "$DIROUT/wave/"
+
+exit
+
+# Check if .nc files exist and move them
+if ls "$DIROUT/wave/marineservices.metoffice.gov.uk/shelf-amm15/" 1> /dev/null 2>&1; then
+   mv -f "$DIROUT/wave/marineservices.metoffice.gov.uk/shelf-amm15/"*.nc "$DIROUT/wave/"
+   rm -rf "$DIROUT/wave/marineservices.metoffice.gov.uk"
+else
+   echo "$(date) - No .nc files found to move." >> /path/to/logfile.log
+fi
+
+# Download winds from API
+cd /home/nievesg/MO_FTP/Atmos
+bash CallProgram.bat
+if [ $? -ne 0 ]; then
+    echo "$(date) - Error running CallProgram.bat" >> /path/to/logfile.log
+    exit 1
+fi
+
+# Copy wind data to the target directory
+DIR='/home/nievesg/MO_FTP/Atmos/downloaded/o104448053774_00'
+cp "$DIR/agl_wind-direction-from-which-blowing-surface-adjusted_10.0_+00.grib2"  "$DIROUT/wind/agl_wind-direction-$DATE.grib2"
+cp "$DIR/agl_wind-speed-surface-adjusted_10.0_+00.grib2"  "$DIROUT/wind/agl_wind-speed-$DATE.grib2"
+
+# Run SPLASH
