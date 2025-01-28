@@ -1,4 +1,0 @@
-# m h  dom mon dow   command
-# Download MO data for SPLASH
-0 11 * * * cd /data/downloader && echo "$(date) - Running download_SPLASH_data.sh" >> cron.log && bash download_SPLASH_data.sh >> cron.log 2>&1
-
