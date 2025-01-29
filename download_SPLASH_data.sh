@@ -6,15 +6,7 @@ DATE=$(date '+%Y%m%d')
 DIROUT='/data/data_inputs'
 
 # Download waves from FTP
-wget --no-verbose -r --user="$user" --password="$password" ftp://marineservices.metoffice.gov.uk/shelf-amm15/metoffice_wave_amm15_NWS_WAV_b$(date +\%Y\%m\%d)_hi*.nc -P "$DIROUT/wave/"
-
-# Check if .nc files exist and move them
-if ls "$DIROUT/wave/marineservices.metoffice.gov.uk/shelf-amm15/" 1> /dev/null 2>&1; then
-   mv -f "$DIROUT/wave/marineservices.metoffice.gov.uk/shelf-amm15/"*.nc "$DIROUT/wave/"
-   rm -rf "$DIROUT/wave/marineservices.metoffice.gov.uk"
-else
-   echo "$(date) - No .nc files found to move."
-fi
+wget -c --no-verbose --user="$user" --password="$password" ftp://marineservices.metoffice.gov.uk/shelf-amm15/metoffice_wave_amm15_NWS_WAV_b$(date +\%Y\%m\%d)_hi*.nc -P "$DIROUT/wave/"
 
 # Download winds from API
 echo "running APIDownload.sh"
