@@ -47,6 +47,6 @@ fi
 # cleanup old data, but only if new download succeeded
 if [ "$wave_download_success" = "1" -a "$wind_download_success" = "1" ] ; then
     echo "Deleting old data"
-    find $DIROUT/wind -mmin +1440 -delete
-    find $DIROUT/wave -mmin +1440 -delete
+    find $DIROUT/wind -mmin +1440 -delete -print
+    find $DIROUT/wave -mmin +1440 -delete -print
 fi
