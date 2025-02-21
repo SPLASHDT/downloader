@@ -30,6 +30,10 @@ wind_download_success="0"
 if [ `ls $DIROUT/wave/metoffice_wave_amm15_NWS_WAV_b$(date +\%Y\%m\%d)_hi*.nc | wc -l` = "8" ] ; then
     wave_download_success="1"
     echo "All wave data downloaded successfully"
+    yesterday=$DIROUT/wave/metoffice_wave_amm15_NWS_WAV_b$(date +\%Y\%m\%d)_hi$(date -d "1 day ago" +\%Y\%m\%d).nc
+    day_before_yesterday=$DIROUT/wave/metoffice_wave_amm15_NWS_WAV_b$(date +\%Y\%m\%d)_hi$(date -d "2 days ago" +\%Y\%m\%d).nc
+    echo "removing un-needed files: $yesterday and $day_before_yesterday"
+    rm $yesterday $day_before_yesterday
 else 
     wave_download_success="0"
     echo "Wave data did not download successfully"
@@ -47,6 +51,6 @@ fi
 # cleanup old data, but only if new download succeeded
 if [ "$wave_download_success" = "1" -a "$wind_download_success" = "1" ] ; then
     echo "Deleting old data"
-    find $DIROUT/wind -mmin +1440 -delete -print
-    find $DIROUT/wave -mmin +1440 -delete -print
+    find $DIROUT/wind -maxdepth 1 -type f -mmin +1440 -delete -print
+    find $DIROUT/wave -maxdepth 1 -type f -mmin +1440 -delete -print
 fi
