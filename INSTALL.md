@@ -33,12 +33,13 @@ The cron job will run at every hour divisble by 5 (e.g. midnight, 5am, 10am, 5pm
 
 # 5. Setup the credentails file
 
-There are no credentials stored in the Github repository. Create a file called credentials.sh in the downloader's directory (e.g. `/data/downloader`). Add the following lines and set 
-it to your real username and password.
+There are no credentials stored in the Github repository. Create a file called credentials.sh in the downloader's directory (e.g. `/data/downloader`). Add the following lines and set it to your real username, password, API key and order ID.
 
 ~~~
-user="yourusername"
-password="yourpassword"
+user="your username"
+password="your password"
+apikey="your API key"
+order="your order ID"
 ~~~
 
 # 6. Checking everything has worked
@@ -79,7 +80,7 @@ data_inputs/wind/storm_bert
 # 8. Install the Docker containers
 
 ~~~
-git clone --recuse-submodules git@github.com:SPLASHDT/splash-docker.git
+git clone --recurse-submodules git@github.com:SPLASHDT/splash-docker.git
 cd splash-docker
 ~~~
 
