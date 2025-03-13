@@ -88,7 +88,7 @@ cd splash-docker
 
 ~~~
 docker-compose build
-docker-compose start
+docker-compose up -d
 ~~~
 
 This should have the SPLASH server running on port 8050. Change the first 8050 under the frontend service if you want it to use a different port.
