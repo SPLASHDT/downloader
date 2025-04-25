@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: © 2025 National Oceanography Centre and University of Plymouth
+
+# SPDX-License-Identifier: MIT
+
+# install the crontab by running crontab downloader_crontab
+# m h  dom mon dow   command
+# Download MO data for SPLASH
+0 */5 * * * cd /data/downloader && echo "$(date) - Running download_SPLASH_data.sh" >> cron.log && bash download_SPLASH_data.sh >> cron.log 2>&1
+
